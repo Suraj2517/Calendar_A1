@@ -202,7 +202,7 @@ case 5:
         }
     default:
         {
-            Console.WriteLine("You have Entered a Wrong choice");
+            Console.WriteLine("invalid selection");
             break;
         }
 }
