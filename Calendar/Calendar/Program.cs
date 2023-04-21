@@ -94,7 +94,7 @@ case 5:
             {
                 Console.Write("\t");
             }
-            for (int i = 1; i <= 30; i++)
+            for (int i = 1; i <= 31; i++)
             {
                 Console.Write(i + "\t");
                 if ((day + i) % 7 == 0)
@@ -108,7 +108,7 @@ case 5:
             {
                 Console.Write("\t");
             }
-            for (int i = 1; i <= 31; i++)
+            for (int i = 1; i <= 30; i++)
             {
                 Console.Write(i + "\t");
                 if ((day + i) % 7 == 0)
@@ -206,6 +206,3 @@ case 5:
             break;
         }
 }
-
-
-
