@@ -90,20 +90,20 @@ for (int i = 0; i < n4; i++)
 }
 int count = 0;
 string ch = "";
-foreach (string str6 in words4)
+foreach (string word in words4)
 {
     string rev = "";
-    int length = str6.Length;
+    int length = word.Length;
     for (int i = length - 1; i >= 0; i--)
     {
-        rev += str6[i];
+        rev += word[i];
     }
-    if (rev == str6)
+    if (rev == word)
     {
         count++;
-        ch = ch + str6 + " ";
+        ch = ch + word + " ";
     }
 }
 Console.WriteLine();
-Console.WriteLine("The number of palindromes in the string :" + count);
+Console.WriteLine("The number of palindromes in the list :" + count);
 Console.WriteLine(ch);
