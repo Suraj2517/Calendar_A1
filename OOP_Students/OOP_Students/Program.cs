@@ -1,4 +1,4 @@
-﻿namespace examEvaluation
+﻿namespace OOP_Students
 {
     class Student
     {
