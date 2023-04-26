@@ -57,7 +57,7 @@
             Console.Write("Phone number (including state code): ");
             string phone = Console.ReadLine();
 
-            if (phone.Length != 12)
+            if (phone.Length != 10)
             {
                 Console.WriteLine("Invalid phone number");
                 return;
