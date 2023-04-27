@@ -1,146 +1,97 @@
 ﻿namespace Bank_Details
 {
-    class customer
+    class Customer
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Gender { get; set; }
-        public string Address { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
         public string Village { get; set; }
-        public string District { get; set; }
-        public string PhoneNumber { get; set; }
-        public string CustomerID { get; set; }
-
-        public customer(string firstName, string lastName, DateTime dateOfBirth, string gender, string address, string village, string district, string phone)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            DateOfBirth = dateOfBirth;
-            Gender = gender;
-            Address = address;
-            Village = village;
-            District = district;
-            PhoneNumber = phone;
-            CustomerID = GenerateCustomerId(firstName, lastName);
-        }
-
-        private string GenerateCustomerId(string firstName, string lastName)
-        {
-            Random rand = new Random();
-            int randomNumber = rand.Next(10, 99);
-            string customerId = $"{firstName[0]}{lastName[0]}{randomNumber}";
-            return customerId;
-        }
+        public string DOB { get; set; }
+        public string Mobileno { get; set; }
+        public string Username { get; set; }
     }
-
     class Bank
     {
-        List<customer> customerList = new List<customer>();
-        public void AddCustomer()
+        int n = 0;
+        Customer[] customers;
+        public void details()
         {
-            Console.WriteLine("Enter customer details:");
-            Console.Write("First name: ");
-            string firstName = Console.ReadLine();
-            Console.Write("Last name: ");
-            string lastName = Console.ReadLine();
-            Console.Write("Date of birth (dd/mm/yyyy): ");
-            DateTime dateOfBirth = DateTime.Parse(Console.ReadLine());
-            Console.Write("Gender: ");
-            string gender = Console.ReadLine();
-            Console.Write("Address: ");
-            string address = Console.ReadLine();
-            Console.Write("Village: ");
-            string village = Console.ReadLine();
-            Console.Write("District: ");
-            string district = Console.ReadLine();
-            Console.Write("Phone number (including state code): ");
-            string phone = Console.ReadLine();
-
-            if (phone.Length != 10)
+            Console.WriteLine("Enter no of customers:");
+            n = Convert.ToInt32(Console.ReadLine());
+            customers = new Customer[n];
+            for (int i = 0; i < n; i++)
             {
-                Console.WriteLine("Invalid phone number");
-                return;
-            }
 
-            customer customer = new customer(firstName, lastName, dateOfBirth, gender, address, village, district, phone);
-            customerList.Add(customer);
-
-            Console.WriteLine($"Customer added successfully. Customer ID: {customer.CustomerID}");
-        }
-
-        public void SearchCustomerByLastName()
-        {
-            Console.Write("Enter the customer's last name: ");
-            string lastName = Console.ReadLine();
-
-            foreach (customer customer in customerList)
-            {
-                if (customer.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                Console.WriteLine($"Enter first name of customer {i + 1}");
+                string firstname = Console.ReadLine();
+                Console.WriteLine($"Enter last name of customer {i + 1}");
+                string lastname = Console.ReadLine();
+                Console.WriteLine($"Enter village name of customer {i + 1}");
+                string villagename = Console.ReadLine();
+                Console.WriteLine($"Enter date of birth of customer {i + 1} in DD/MM/YYYY format");
+                string dob = Console.ReadLine();
+                Console.WriteLine($"Enter mobile number of {i + 1}");
+                string mobileno = Console.ReadLine();
+                if (mobileno.Length != 10)
                 {
-                    Console.WriteLine("Customer Details:");
-                    Console.WriteLine($"Customer ID: {customer.CustomerID}");
-                    Console.WriteLine($"First name: {customer.FirstName}");
-                    Console.WriteLine($"Last name: {customer.LastName}");
-                    Console.WriteLine($"Date of birth (dd/mm/yyyy): {customer.DateOfBirth}");
-                    Console.WriteLine($"Gender: {customer.Gender}");
-                    Console.WriteLine($"Address: {customer.Address}");
-                    Console.WriteLine($"Village: {customer.Village}");
-                    Console.WriteLine($"District: {customer.District}");
-                    Console.WriteLine($"Phone number (including state code): {customer.PhoneNumber}");
+                    Console.WriteLine("you have entered invalid mobile number.....please enter a valid number ");
+                    mobileno = Console.ReadLine();
                 }
+                customers[i] = new Customer() { Firstname = firstname, Lastname = lastname, Village = villagename, DOB = dob, Mobileno = mobileno };
+
+
             }
 
         }
-
-        public void DisplayListOfCustomersInVillage()
+        public void randomuserid()
         {
-            Console.Write("Enter the Village or District: ");
-            string val = Console.ReadLine();
-            Console.WriteLine($"slno\tCustomerID\tFirstName\tLastName\tGender\tPhone Number");
-            int i = 1;
-            foreach (customer customer in customerList)
+            for (int i = 0; i < n; i++)
             {
-                if (customer.Village.Equals(val, StringComparison.OrdinalIgnoreCase) || customer.District.Equals(val, StringComparison.OrdinalIgnoreCase))
+                string fname = customers[i].Firstname;
+                string lname = customers[i].Lastname;
+                Random rnd = new Random();
+                int randomNum = rnd.Next(1000, 9999);
+                string username = $"{fname}.{lname}{randomNum}";
+                Console.WriteLine($"{customers[i].Firstname} username: {username}");
+                customers[i].Username = username;
+            }
+        }
+        public void show()
+        {
+            Console.WriteLine("Enter last name of the customer:");
+            string lname = Console.ReadLine();
+            for (int i = 0; i < n; i++)
+            {
+                if (customers[i].Lastname == lname)
                 {
-                    Console.WriteLine($"{i}\t{customer.CustomerID}\t\t{customer.FirstName}\t\t{customer.LastName}" +
-                        $"\t\t{customer.Gender}\t{customer.PhoneNumber}");
-                    i++;
+                    Console.WriteLine($"{customers[i].Firstname}\t\t{customers[i].Lastname}\t\t{customers[i].Village}\t\t{customers[i].DOB}\t\t{customers[i].Mobileno}\t\t{customers[i].Username}");
+
                 }
             }
         }
+        public void samevillage()
+        {
+            Console.WriteLine("enter a village name");
+            string vname = Console.ReadLine();
+            for (int i = 0; i < n; i++)
+            {
+                if (customers[i].Village == vname)
+                {
+                    Console.WriteLine($"{customers[i].Firstname} \t {customers[i].Lastname} \t {customers[i].Village} \t {customers[i].DOB} \t {customers[i].Mobileno} \t {customers[i].Username}");
+                }
+            }
+        }
+
     }
     internal class Program
     {
         static void Main(string[] args)
         {
             Bank bank = new Bank();
-            while (true)
-            {
-                Console.WriteLine("-------------------------------------------------------------------------------");
-                Console.WriteLine("1. Add Customer");
-                Console.WriteLine("2. Search Customer by Last Name");
-                Console.WriteLine("3. Display List of Customers in Taluk or Village");
-                Console.Write("Enter your choice: ");
-                string choice = Console.ReadLine();
-                Console.WriteLine("-------------------------------------------------------------------------------");
+            bank.details();
+            bank.randomuserid();
+            bank.show();
+            bank.samevillage();
 
-                switch (choice)
-                {
-                    case "1":
-                        bank.AddCustomer();
-                        break;
-                    case "2":
-                        bank.SearchCustomerByLastName();
-                        break;
-                    case "3":
-                        bank.DisplayListOfCustomersInVillage();
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice");
-                        break;
-                }
-            }
         }
     }
 }
